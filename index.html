@@ -4,98 +4,338 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Atendente Virtual ErGui</title>
+<title>Atendente Virtual | ErGui</title>
+
 <style>
+:root {
+  --bege: #f5f0e8;
+  --creme: #fffdf9;
+  --marrom: #704b3b;
+  --marrom-claro: #a17b65;
+  --verde: #69775b;
+  --verde-claro: #e9ede3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f5eee8;
   margin: 0;
-  padding: 25px 12px;
+  min-height: 100vh;
+  padding: 35px 15px;
+  font-family: Arial, sans-serif;
+  background: var(--bege);
+  color: var(--marrom);
+  position: relative;
+  overflow-x: hidden;
 }
+
+/* DECORAÇÕES BOTÂNICAS */
+
+.decoracao {
+  position: fixed;
+  width: 190px;
+  height: 260px;
+  pointer-events: none;
+  opacity: .65;
+  z-index: 0;
+}
+
+.decoracao.esquerda {
+  top: 0;
+  left: 0;
+}
+
+.decoracao.direita {
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+.decoracao svg {
+  width: 100%;
+  height: 100%;
+}
+
+.linha {
+  fill: none;
+  stroke: var(--marrom-claro);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.folha {
+  fill: none;
+  stroke: var(--verde);
+  stroke-width: 1.3;
+}
+
+.flor {
+  fill: none;
+  stroke: var(--marrom);
+  stroke-width: 1.2;
+}
+
+/* CHAT */
+
 .chat {
-  max-width: 420px;
-  margin: auto;
-  background: white;
-  border-radius: 16px;
+  position: relative;
+  z-index: 1;
+  max-width: 440px;
+  margin: 25px auto;
+  background: var(--creme);
+  border: 1px solid #dfd2c5;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 20px #0002;
+  box-shadow: 0 8px 30px #60452b15;
 }
+
+/* CABEÇALHO */
+
 header {
-  background: #704b3b;
+  background: var(--marrom);
   color: white;
-  padding: 20px;
   text-align: center;
+  padding: 30px 20px;
+  border-bottom: 4px solid var(--verde);
 }
-#messages { padding: 18px; min-height: 220px; }
+
+.logo {
+  font-family: Georgia, serif;
+  font-size: 32px;
+  letter-spacing: 3px;
+  margin: 0;
+  font-weight: normal;
+}
+
+.subtitulo {
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin: 7px 0 18px;
+  color: #e7d9cd;
+}
+
+header h2 {
+  font-family: Georgia, serif;
+  font-weight: normal;
+  font-size: 23px;
+  margin: 0 0 8px;
+}
+
+header p {
+  font-size: 14px;
+  margin: 0;
+  color: #f1e7de;
+}
+
+/* MENSAGENS */
+
+#messages {
+  padding: 20px;
+  min-height: 210px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
 .msg {
-  background: #f2e9e2;
-  padding: 12px;
-  border-radius: 12px;
+  background: #f1eae2;
+  color: #594336;
+  padding: 13px 15px;
+  border-radius: 13px 13px 13px 3px;
   margin: 10px 0;
   font-size: 14px;
+  line-height: 1.6;
 }
+
 .user {
-  background: #e5d2c5;
+  background: var(--verde-claro);
+  color: #48533e;
   text-align: right;
+  border-radius: 13px 13px 3px 13px;
 }
-.options { padding: 0 18px 18px; }
+
+/* BOTÕES */
+
+.options {
+  padding: 0 20px 22px;
+}
+
 button {
   display: block;
   width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border: 1px solid #9b7560;
-  border-radius: 9px;
-  background: white;
-  color: #704b3b;
+  padding: 14px;
+  margin: 9px 0;
+  border: 1px solid #b99d8a;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--marrom);
+  font-size: 14px;
   cursor: pointer;
+  transition: .2s;
 }
-button:hover { background: #f5eee8; }
+
+button:hover {
+  background: #f1eae2;
+}
+
 .whatsapp {
-  background: #287b50;
+  background: var(--verde);
+  border-color: var(--verde);
   color: white;
+  margin-top: 17px;
+}
+
+.whatsapp:hover {
+  background: #526247;
+}
+
+/* RODAPÉ */
+
+footer {
+  text-align: center;
+  padding: 15px;
+  border-top: 1px solid #e8ddd2;
+  color: #8a7667;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px 10px;
+  }
+
+  .chat {
+    margin: 25px auto;
+  }
+
+  .decoracao {
+    width: 115px;
+    opacity: .4;
+  }
 }
 </style>
 </head>
+
 <body>
+
+<!-- FLORAL SUPERIOR ESQUERDO -->
+<div class="decoracao esquerda">
+<svg viewBox="0 0 190 260">
+  <path class="linha" d="M5 5 Q45 55 65 110 Q90 165 35 245"/>
+  <path class="folha" d="M39 62 Q5 45 14 20 Q42 29 39 62Z"/>
+  <path class="folha" d="M49 82 Q85 46 98 65 Q83 94 49 82Z"/>
+  <path class="folha" d="M61 116 Q23 98 24 78 Q56 87 61 116Z"/>
+  <path class="folha" d="M64 144 Q98 110 112 130 Q93 156 64 144Z"/>
+  <path class="folha" d="M61 180 Q28 158 34 139 Q63 151 61 180Z"/>
+
+  <g class="flor">
+    <path d="M105 40 Q85 25 96 13 Q110 12 105 40Z"/>
+    <path d="M105 40 Q108 15 123 21 Q128 36 105 40Z"/>
+    <path d="M105 40 Q130 36 130 51 Q115 61 105 40Z"/>
+    <path d="M105 40 Q115 65 99 68 Q86 56 105 40Z"/>
+    <path d="M105 40 Q81 49 78 35 Q86 20 105 40Z"/>
+    <circle cx="105" cy="40" r="5"/>
+  </g>
+</svg>
+</div>
+
+<!-- FLORAL INFERIOR DIREITO -->
+<div class="decoracao direita">
+<svg viewBox="0 0 190 260">
+  <path class="linha" d="M5 5 Q45 55 65 110 Q90 165 35 245"/>
+  <path class="folha" d="M39 62 Q5 45 14 20 Q42 29 39 62Z"/>
+  <path class="folha" d="M49 82 Q85 46 98 65 Q83 94 49 82Z"/>
+  <path class="folha" d="M61 116 Q23 98 24 78 Q56 87 61 116Z"/>
+  <path class="folha" d="M64 144 Q98 110 112 130 Q93 156 64 144Z"/>
+  <path class="folha" d="M61 180 Q28 158 34 139 Q63 151 61 180Z"/>
+
+  <g class="flor">
+    <path d="M105 40 Q85 25 96 13 Q110 12 105 40Z"/>
+    <path d="M105 40 Q108 15 123 21 Q128 36 105 40Z"/>
+    <path d="M105 40 Q130 36 130 51 Q115 61 105 40Z"/>
+    <path d="M105 40 Q115 65 99 68 Q86 56 105 40Z"/>
+    <path d="M105 40 Q81 49 78 35 Q86 20 105 40Z"/>
+    <circle cx="105" cy="40" r="5"/>
+  </g>
+</svg>
+</div>
+
+<!-- ATENDIMENTO -->
 <div class="chat">
-  <header>
-    <h2>Atendimento ErGui</h2>
-    <p>Como podemos ajudar?</p>
-  </header>
 
-  <div id="messages">
-    <div class="msg">
-      Olá! Seja bem-vindo(a).
-      Escolha uma das opções abaixo:
-    </div>
-  </div>
+<header>
+  <h1 class="logo">ErGui</h1>
+  <div class="subtitulo">MARKETING & COMUNICAÇÃO</div>
+  <h2>Atendimento Virtual</h2>
+  <p>Como podemos ajudar você?</p>
+</header>
 
-  <div class="options">
-    <button onclick="reply('servicos')">Conhecer os serviços</button>
-    <button onclick="reply('precos')">Consultar preços</button>
-    <button onclick="reply('horarios')">Horários de atendimento</button>
-    <button onclick="reply('local')">Endereço e localização</button>
-    <button class="whatsapp" onclick="contact()">Falar com atendente</button>
+<div id="messages">
+  <div class="msg">
+    Olá! Seja bem-vindo(a) à ErGui.
+    <br><br>
+    Será um prazer atender você!
+    <br>
+    Escolha uma das opções abaixo para continuar.
   </div>
 </div>
 
+<div class="options">
+  <button onclick="reply('servicos')">
+    Conhecer nossos serviços
+  </button>
+
+  <button onclick="reply('precos')">
+    Consultar preços
+  </button>
+
+  <button onclick="reply('horarios')">
+    Horários de atendimento
+  </button>
+
+  <button onclick="reply('local')">
+    Endereço e localização
+  </button>
+
+  <button class="whatsapp" onclick="contact()">
+    Falar com um atendente
+  </button>
+</div>
+
+<footer>
+  ERGUI · SEU CLIENTE ESTÁ ONLINE, E VOCÊ?
+</footer>
+
+</div>
+
 <script>
+
 function reply(option) {
+
   const answers = {
-    servicos: "Trabalhamos com serviços personalizados. Qual serviço você deseja conhecer?",
-    precos: "Os valores variam conforme o serviço. Fale com nossa equipe para consultar.",
-    horarios: "Entre em contato para consultar os horários disponíveis.",
-    local: "Solicite nossa localização pelo WhatsApp."
+    servicos:
+      "A ErGui trabalha com soluções de marketing digital, criação de conteúdo, planejamento estratégico e gestão de redes sociais. Conte-nos o que você procura!",
+
+    precos:
+      "Nossos valores variam conforme o serviço e as necessidades do seu negócio. Fale com nossa equipe para receber uma proposta.",
+
+    horarios:
+      "Para consultar nossos horários de atendimento, entre em contato com nossa equipe pelo WhatsApp.",
+
+    local:
+      "Nosso atendimento pode ser realizado de forma digital. Entre em contato para conhecer nossas opções de atendimento."
   };
 
-  const messages = document.getElementById("messages");
   const labels = {
-    servicos: "Conhecer os serviços",
+    servicos: "Conhecer nossos serviços",
     precos: "Consultar preços",
     horarios: "Horários de atendimento",
     local: "Endereço e localização"
   };
+
+  const messages = document.getElementById("messages");
 
   messages.innerHTML +=
     '<div class="msg user">' + labels[option] + '</div>' +
@@ -105,16 +345,22 @@ function reply(option) {
 }
 
 function contact() {
-  // Substitua pelo número da empresa:
-  const whatsapp = "55DDDNUMERO";
+
+  // COLOQUE AQUI O WHATSAPP DA ERGUI
+  // Exemplo: 5571999999999
+  const whatsapp = "5571984036864";
+
   const message = encodeURIComponent(
-    "Olá! Vim pelo atendimento virtual e gostaria de mais informações."
+    "Olá! Vim pelo atendimento virtual da ErGui e gostaria de conhecer os serviços."
   );
+
   window.open(
     "https://wa.me/" + whatsapp + "?text=" + message,
     "_blank"
   );
 }
+
 </script>
+
 </body>
 </html>
