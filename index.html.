@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atendente Virtual ErGui</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5eee8;
+  margin: 0;
+  padding: 25px 12px;
+}
+.chat {
+  max-width: 420px;
+  margin: auto;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px #0002;
+}
+header {
+  background: #704b3b;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+#messages { padding: 18px; min-height: 220px; }
+.msg {
+  background: #f2e9e2;
+  padding: 12px;
+  border-radius: 12px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+.user {
+  background: #e5d2c5;
+  text-align: right;
+}
+.options { padding: 0 18px 18px; }
+button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #9b7560;
+  border-radius: 9px;
+  background: white;
+  color: #704b3b;
+  cursor: pointer;
+}
+button:hover { background: #f5eee8; }
+.whatsapp {
+  background: #287b50;
+  color: white;
+}
+</style>
+</head>
+<body>
+<div class="chat">
+  <header>
+    <h2>Atendimento ErGui</h2>
+    <p>Como podemos ajudar?</p>
+  </header>
+
+  <div id="messages">
+    <div class="msg">
+      Olá! Seja bem-vindo(a).
+      Escolha uma das opções abaixo:
+    </div>
+  </div>
+
+  <div class="options">
+    <button onclick="reply('servicos')">Conhecer os serviços</button>
+    <button onclick="reply('precos')">Consultar preços</button>
+    <button onclick="reply('horarios')">Horários de atendimento</button>
+    <button onclick="reply('local')">Endereço e localização</button>
+    <button class="whatsapp" onclick="contact()">Falar com atendente</button>
+  </div>
+</div>
+
+<script>
+function reply(option) {
+  const answers = {
+    servicos: "Trabalhamos com serviços personalizados. Qual serviço você deseja conhecer?",
+    precos: "Os valores variam conforme o serviço. Fale com nossa equipe para consultar.",
+    horarios: "Entre em contato para consultar os horários disponíveis.",
+    local: "Solicite nossa localização pelo WhatsApp."
+  };
+
+  const messages = document.getElementById("messages");
+  const labels = {
+    servicos: "Conhecer os serviços",
+    precos: "Consultar preços",
+    horarios: "Horários de atendimento",
+    local: "Endereço e localização"
+  };
+
+  messages.innerHTML +=
+    '<div class="msg user">' + labels[option] + '</div>' +
+    '<div class="msg">' + answers[option] + '</div>';
+
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function contact() {
+  // Substitua pelo número da empresa:
+  const whatsapp = "55DDDNUMERO";
+  const message = encodeURIComponent(
+    "Olá! Vim pelo atendimento virtual e gostaria de mais informações."
+  );
+  window.open(
+    "https://wa.me/" + whatsapp + "?text=" + message,
+    "_blank"
+  );
+}
+</script>
+</body>
+</html>
